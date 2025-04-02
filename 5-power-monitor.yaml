@@ -1,0 +1,26 @@
+substitutions:
+  name: 5-power-monitor
+  friendly_name: 5-power-monitor
+packages:
+  Athom_Technology.Smart_Plug_V3: github://athom-tech/esp32-configs/athom-smart-plug.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: tu5mp4BZuW5EqX5JXkd+Ln3naFT1CStzMuE6VtVhekE=
+  reboot_timeout: 0s # Prevent reboots when unmanaged
+
+wifi: !secret wifi  # Makes demo smoother
+
+# START ****************************
+sensor:
+  - id: !extend athom_cse7766
+    power:
+      on_value_range:
+        above: 10
+        then: 
+          - delay: 2s
+          - switch.turn_off: relay
+# END ****************************

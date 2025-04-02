@@ -1,0 +1,34 @@
+substitutions:
+  name: 3-sun-position
+  friendly_name: 3-sun-position
+packages:
+  Athom_Technology.Smart_Plug_V3: github://athom-tech/esp32-configs/athom-smart-plug.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: tu5mp4BZuW5EqX5JXkd+Ln3naFT1CStzMuE6VtVhekE=
+  reboot_timeout: 0s # Prevent reboots when unmanaged
+
+wifi: !secret wifi  # Makes demo smoother
+
+# START ****************************
+time:
+  - platform: sntp
+
+sun:
+  # Kitchener
+  latitude: 43.418611°
+  longitude: -80.472778°
+  on_sunrise:
+    - then:
+        - logger.log: Good morning!
+        - switch.turn_off: relay
+  on_sunset:
+    - then:
+        - logger.log: Good evening!
+        - switch.turn_on: relay
+
+# END ****************************

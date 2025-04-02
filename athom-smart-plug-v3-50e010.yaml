@@ -1,0 +1,15 @@
+substitutions:
+  name: athom-smart-plug-v3-50e010
+  friendly_name: Athom Plug V3 50e010
+packages:
+  Athom_Technology.Smart_Plug_V3: github://athom-tech/esp32-configs/athom-smart-plug.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: tu5mp4BZuW5EqX5JXkd+Ln3naFT1CStzMuE6VtVhekE=
+
+
+wifi: !secret wifi  # Makes demo smoother

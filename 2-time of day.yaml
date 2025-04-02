@@ -1,0 +1,36 @@
+substitutions:
+  name: 2-time-of-day
+  friendly_name: 2-time-of-day
+packages:
+  Athom_Technology.Smart_Plug_V3: github://athom-tech/esp32-configs/athom-smart-plug.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: tu5mp4BZuW5EqX5JXkd+Ln3naFT1CStzMuE6VtVhekE=
+  reboot_timeout: 0s # Prevent reboots when unmanaged
+
+wifi: !secret wifi  # Makes demo smoother
+
+
+# START ****************************
+logger:
+  level: DEBUG
+time:
+  - platform: sntp
+    on_time:
+      - seconds: 0,30
+        hours: 12-20
+        # days_of_week: MON-FRI
+        then:
+          - switch.toggle: relay
+      - seconds: 0
+        minutes: 1
+        hours: 21
+        # days_of_week: MON-FRI
+        then:
+          - switch.turn_off: relay
+# END ****************************
+
